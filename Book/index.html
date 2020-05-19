@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Practice</title>
-  </head>
 
-  <body>
-    <h1>Haesun's Website</h1>
-    <p></p>
-  </body>
-  <script
-    src="http://code.jquery.com/jquery-3.5.1.js"
-    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-    crossorigin="anonymous"
-  ></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Practice</title>
+</head>
+
+<body>
+  <h1>Haesun's Website</h1>
+  <input id="bookName" value="" type="text">
+  <button id="search">Search</button>
+  <p></p>
+  <script src="http://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
   <script>
-    $.ajax({
-      method: "GET",
-      url: "https://dapi.kakao.com/v3/search/book?target=title",
-      data: { query: "미움 받을 용기" },
-      headers: { Authorization: "KakaoAK 7ca52723cfe3befa40087bdae6fe02b3" },
-    }).done(function (msg) {
-      //   alert("Data Saved: " + msg);
-      console.log(msg.documents[0].title);
-      console.log(msg.documents[0].thumbnail);
-      $("p").append("<strong>" + msg.documents[0].title + "</strong>");
-      $("p").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+    $(document).ready(function () {
+      $("#search").click(function () {
+        $.ajax({
+          method: "GET",
+          url: "https://dapi.kakao.com/v3/search/book?target=title",
+          data: { query: $("#bookName").val() },
+          headers: {
+            Authorization: "KakaoAK 7ca52723cfe3befa40087bdae6fe02b3",
+          },
+        }).done(function (msg) {
+          //   alert("Data Saved: " + msg);
+          console.log(msg.documents[0].title);
+          console.log(msg.documents[0].thumbnail);
+          $("p").append("<strong>" + msg.documents[0].title + "</strong>");
+          $("p").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+        });
+      });
     });
   </script>
+
 </html>
